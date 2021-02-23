@@ -7,7 +7,7 @@ const clientRouter = require("./routers/clientsRouter");
 const policyRouter = require("./routers/policiesRouter");
 
 // controller for api
-const { login } = require("./controllers/loginController");
+const errorHandler = require("./controllers/errorController");
 
 // Start express app
 const app = express();
@@ -32,3 +32,5 @@ app.all("*", (req, res, next) => {
     })
   );
 });
+
+app.use(errorHandler);
