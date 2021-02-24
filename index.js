@@ -25,12 +25,17 @@ app.listen(5000, () => {
   console.log("listening on port 5000");
 });
 
-app.all("*", (req, res, next) => {
-  next(
-    res.status(404).json({
-      messsage: `${req.originalUrl} is not available`,
-    })
-  );
+process.on("unhandledRejection", (err) => {
+  console.log("UNHANDLED REJECTION! Shutting down...");
+  console.log(err.name, err.message);
+  server.close(() => {
+    process.exit(1);
+  });
 });
 
-app.use(errorHandler);
+process.on("SIGTERM", () => {
+  console.log("SIGTERM RECEIVED. Shutting down gracefully");
+  server.close(() => {
+    console.log("Process terminated!");
+  });
+});
