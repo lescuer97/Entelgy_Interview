@@ -1,13 +1,18 @@
 const express = require("express");
 const morgan = require("morgan");
 const dotenv = require("dotenv");
+const session = require("express-session");
+
+dotenv.config({ path: "./.env" });
 
 // routes for the API
 const clientRouter = require("./routers/clientsRouter");
 const policyRouter = require("./routers/policiesRouter");
 
 // controller for api
+const { insuranceApiLogin } = require("./controllers/authController");
 const errorHandler = require("./controllers/errorController");
+const AppError = require("./utils/appError");
 
 // Start express app
 const app = express();
@@ -17,12 +22,19 @@ app.use(express.json());
 // logging for development
 app.use(morgan("dev"));
 
-app.post("/api/login", login);
+app.post("/api/login", insuranceApiLogin);
+
 app.use("/api/policies", policyRouter);
 app.use("/api/clients", clientRouter);
 
-app.listen(5000, () => {
-  console.log("listening on port 5000");
+app.all("*", (req, res, next) => {
+  next(new AppError(`This Route: ${req.originalUrl} is not allowed`, 404));
+});
+
+app.use(errorHandler);
+
+app.listen(3000, () => {
+  console.log("listening on port 3000");
 });
 
 process.on("unhandledRejection", (err) => {
