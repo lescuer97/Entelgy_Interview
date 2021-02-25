@@ -1,9 +1,8 @@
 const express = require("express");
+const { insuranceApiLogin } = require("../controllers/authController");
 
 const router = express.Router();
 
-router.route("/");
-router.route("/:id");
-router.route("/:id/policies");
+router.use(insuranceApiLogin);
 
 module.exports = router;
