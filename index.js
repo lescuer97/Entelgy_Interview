@@ -28,8 +28,7 @@ app.use(cors());
 
 // app.post("/api/v1/login", insuranceApiLogin);
 
-app.use("/api/policies", policyRouter);
-app.use("/api/clients", clientRouter);
+app.use("/api/v1/policies", policyRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`This Route: ${req.originalUrl} is not allowed`, 404));
