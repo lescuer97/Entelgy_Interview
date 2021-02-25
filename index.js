@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const dotenv = require("dotenv");
 const session = require("express-session");
 
@@ -22,7 +23,10 @@ app.use(express.json());
 // logging for development
 app.use(morgan("dev"));
 
-app.post("/api/login", insuranceApiLogin);
+//TODO needs To be configured in the future
+app.use(cors());
+
+// app.post("/api/v1/login", insuranceApiLogin);
 
 app.use("/api/policies", policyRouter);
 app.use("/api/clients", clientRouter);
