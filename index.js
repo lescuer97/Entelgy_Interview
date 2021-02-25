@@ -2,7 +2,6 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const session = require("express-session");
 
 dotenv.config({ path: "./.env" });
 
@@ -29,6 +28,7 @@ app.use(cors());
 // app.post("/api/v1/login", insuranceApiLogin);
 
 app.use("/api/v1/policies", policyRouter);
+app.use("/api/v1/clients", clientRouter);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`This Route: ${req.originalUrl} is not allowed`, 404));
