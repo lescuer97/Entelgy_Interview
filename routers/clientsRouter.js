@@ -12,9 +12,12 @@ const { insuranceApiLogin } = require("../controllers/authController");
 const router = express.Router();
 
 router.use(insuranceApiLogin);
+router.use(policyAPIRequest);
 
 router.route("/").get(clientAPIRequest, client);
 router.route("/:id").get(clientAPIRequest, clientId);
-router.route("/:id/policies").get(policyAPIRequest, clientPolicy);
+
+//grabs the policies from a specified id
+router.route("/:id/policies").get(clientPolicy);
 
 module.exports = router;
