@@ -24,12 +24,12 @@ exports.clientAPIRequest = catchAsync(async (req, res, next) => {
 });
 
 exports.client = (req, res, next) => {
-  res.status(200).json(req.clients);
+  const finalResult = addPoliciesToClients(req.clients, req.policy);
+  res.status(200).json(finalResult);
 };
 
 exports.clientId = (req, res, next) => {
-  console.log(req.params.id);
-  let finalValue = searcher(req.clients, req.params.id);
+  const interValue = addPoliciesToClients(req.clients, req.policy);
   res.status(200).json(finalValue);
 };
 

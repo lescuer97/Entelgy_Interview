@@ -38,6 +38,28 @@ exports.searchClientIdinPolicyArray = (array, query) => {
 
   return results;
 };
+
+// creates the policy property and deletes un required properties
+exports.addPoliciesToClients = (clients, policies) => {
+  const results = clients.map((client) => {
+    // creates the property of policies
+    Object.defineProperty(client, "policies", {
+      value: undefined,
+      writable: true,
+      configurable: true,
+      enumerable: true,
+    });
+    client.policies = policies.filter(
+      (policy) =>
+        policy.clientId === client.id &&
+        delete policy["clientId"] &&
+        delete policy["email"] &&
+        delete policy["installmentPayment"]
+    );
+
+    return client;
+  });
+
   return results;
 };
 // TODO WRITE FUNCTION
