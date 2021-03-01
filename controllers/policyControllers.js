@@ -24,12 +24,10 @@ exports.policyAPIRequest = catchAsync(async (req, res, next) => {
 
 // return all policies
 exports.policy = (req, res, next) => {
-  let filteredValue = range(req.policy, req.query.limit);
+  let finalValue = range(req.policy, req.query.limit).filter(
+    (obj) => obj.installmentPayment === true && delete obj["clientId"]
+  );
 
-  let finalValue = filteredValue.map((obj) => {
-    delete obj["clientId"];
-    return obj;
-  });
   res.status(200).json(finalValue);
 };
 
