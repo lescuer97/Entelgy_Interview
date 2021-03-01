@@ -22,7 +22,7 @@ exports.range = (array, query) => {
 };
 
 // searches either an id of client in the client array or the id of a policy in the policy array
-exports.searcher = (array, query) => {
+exports.idCompare = (array, query) => {
   let results = array.filter((obj) => obj.id === query);
   return results;
 };

@@ -1,7 +1,7 @@
 const axios = require("axios");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
-const { range, searcher } = require("../utils/utilFunction");
+const { range, idCompare } = require("../utils/utilFunction");
 
 //grabs the policies from the client
 exports.policyAPIRequest = catchAsync(async (req, res, next) => {
@@ -35,13 +35,9 @@ exports.policy = (req, res, next) => {
 
 // returns the policy that matches the provided ID
 exports.policyId = (req, res, next) => {
-  // console.log(req.params.id);
-  let filteredValue = searcher(req.policy, req.params.id);
-
-  let finalValue = filteredValue.map((obj) => {
-    delete obj["clientId"];
-    return obj;
-  });
+  let finalValue = idCompare(req.policy, req.params.id).filter(
+    (obj) => obj.installmentPayment === true && delete obj["clientId"]
+  );
 
   res.status(200).json(finalValue);
 };

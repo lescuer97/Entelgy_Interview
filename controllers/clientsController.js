@@ -1,6 +1,10 @@
 const axios = require("axios");
 const catchAsync = require("../utils/catchAsync");
-const { searcher, searchClientIdinPolicy } = require("../utils/utilFunction");
+const {
+  idCompare,
+  searchClientIdinPolicyArray,
+  addPoliciesToClients,
+} = require("../utils/utilFunction");
 
 // grabs all the clients from the api
 exports.clientAPIRequest = catchAsync(async (req, res, next) => {
@@ -30,6 +34,7 @@ exports.client = (req, res, next) => {
 
 exports.clientId = (req, res, next) => {
   const interValue = addPoliciesToClients(req.clients, req.policy);
+  let finalValue = idCompare(interValue, req.params.id);
   res.status(200).json(finalValue);
 };
 
