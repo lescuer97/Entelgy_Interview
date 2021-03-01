@@ -34,6 +34,7 @@ exports.clientId = (req, res, next) => {
 };
 
 exports.clientPolicy = (req, res, next) => {
-  let finalValue = searchClientIdinPolicy(req.policy, req.params.id);
+  let finalValue = searchClientIdinPolicyArray(req.policy, req.params.id);
+
   res.status(200).json(finalValue);
 };

@@ -27,9 +27,17 @@ exports.searcher = (array, query) => {
   return results;
 };
 
-// searches the policy  array for the id of the client and returns it in the array if equal
-exports.searchClientIdinPolicy = (array, query) => {
-  let results = array.filter((obj) => obj.clientId === query);
+// searches the policies array for the id of the client and returns it in the array if they are equal
+exports.searchClientIdinPolicyArray = (array, query) => {
+  let results = array.filter(
+    (obj) =>
+      obj.clientId === query &&
+      obj.installmentPayment === true &&
+      delete obj["clientId"]
+  );
+
+  return results;
+};
   return results;
 };
 // TODO WRITE FUNCTION
