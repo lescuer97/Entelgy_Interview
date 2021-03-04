@@ -5,6 +5,7 @@ const {
   idCompare,
   searchClientIdinPolicyArray,
   addPoliciesToClients,
+  range,
 } = require("../utils/utilFunction");
 
 // var clientCache = new NodeCache();
@@ -53,7 +54,8 @@ exports.clientAPIRequest = catchAsync(async (req, res, next) => {
 });
 
 exports.client = (req, res, next) => {
-  const finalResult = addPoliciesToClients(req.clients, req.policy);
+  const interValue = range(req.clients, req.query.limit);
+  const finalResult = addPoliciesToClients(interValue, req.policy);
   res.status(200).json(finalResult);
 };
 
