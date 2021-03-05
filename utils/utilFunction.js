@@ -1,3 +1,4 @@
+// select limit of the query and if there isn't a limit sets it to 10
 exports.range = (array, query) => {
   let result = [];
   let limit;
@@ -19,6 +20,15 @@ exports.range = (array, query) => {
     }
   }
   return result;
+};
+
+exports.nameSearch = (arr, name) => {
+  if (!name) {
+    return arr;
+  } else {
+    const values = arr.filter((value) => value.name === name);
+    return values;
+  }
 };
 
 // searches either an id of client in the client array or the id of a policy in the policy array
@@ -62,5 +72,3 @@ exports.addPoliciesToClients = (clients, policies) => {
 
   return results;
 };
-// TODO WRITE FUNCTION
-exports.filterForPolicy = (array) => {};

@@ -6,6 +6,7 @@ const {
   searchClientIdinPolicyArray,
   addPoliciesToClients,
   range,
+  nameSearch,
 } = require("../utils/utilFunction");
 
 // var clientCache = new NodeCache();
@@ -54,8 +55,10 @@ exports.clientAPIRequest = catchAsync(async (req, res, next) => {
 });
 
 exports.client = (req, res, next) => {
-  const interValue = range(req.clients, req.query.limit);
-  const finalResult = addPoliciesToClients(interValue, req.policy);
+  const interValue = nameSearch(req.clients, req.query.name);
+  const rangeValue = range(interValue, req.query.limit);
+
+  const finalResult = addPoliciesToClients(rangeValue, req.policy);
   res.status(200).json(finalResult);
 };
 
