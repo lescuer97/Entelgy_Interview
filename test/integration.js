@@ -4,9 +4,9 @@ var expect = require("chai").expect;
 
 chai.use(chaiHttp);
 
-chai.request("http://localhost:3000/api/v1/policies").get("/");
+// chai.request("http://localhost:3000/api/v1/policies").get("/");
 
-// TODO FIXIED THE INTEGRATION TESTING
+// needs server running
 describe("policies integration", () => {
   it("should return only one policy", (done) => {
     chai
