@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const NodeCache = require("node-cache");
 
 const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
+
 var authCache = new NodeCache();
 
 const signToken = (ids) => {
@@ -28,7 +30,7 @@ exports.insuranceApiLogin = catchAsync(async (req, res, next) => {
       return res.data;
     });
 
-    // I measured the the token  is valid for 10 min I put the validity on 9.5 minutes for having headspace
+    // I measured that the token  is valid for 10 mins so I put the validity on for 9.5 minutes for having headspace
     authCache.set("token", `Bearer ${request.token}`, 570);
 
     // Sends the cache to the next controller
