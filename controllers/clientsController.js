@@ -16,9 +16,9 @@ var clientCache = new NodeCache();
 // grabs all the clients from the api
 exports.clientAPIRequest = catchAsync(async (req, res, next) => {
   // checks if etag exists else returns empty string
-  const cache = (function(a) {
-    if (a) {
-      return a;
+  const cache = (function(cache) {
+    if (cache) {
+      return cache;
     } else {
       return { etag: "" };
     }

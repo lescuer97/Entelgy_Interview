@@ -8,9 +8,9 @@ var policyCache = new NodeCache();
 //grabs the policies from the client
 exports.policyAPIRequest = catchAsync(async (req, res, next) => {
   // checks if etag exists else returns empty string
-  const cache = (function(a) {
-    if (a) {
-      return a;
+  const cache = (function(cache) {
+    if (cache) {
+      return cache;
     } else {
       return { etag: "" };
     }
